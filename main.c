@@ -22,7 +22,7 @@ void exit_with_error(char message[], int status){
 
 int main(int argc, const char * argv[]) {
     char response[1000000];
-    char *request = "GET /\r\nHTTP/1.1\r\nHost: localhost\r\n\rn";
+    char *request = "GET HTTP/1.1\r\nHost: localhost\r\n\r\n";
     struct hostent *server;
     struct sockaddr_in serveraddr;
     int socketfd;
