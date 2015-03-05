@@ -62,7 +62,7 @@ int main(int argc, const char * argv[]) {
     }
 
     bzero(response, sizeof(response) / sizeof(char));
-    recv(socketfd, response, sizeof(response) / sizeof(char) - 1, 0);
+    recv(socketfd, response, sizeof(response) / sizeof(char) - 1, MSG_WAITALL);
     puts(response);
     
     close(socketfd);
