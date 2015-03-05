@@ -22,7 +22,10 @@ void exit_with_error(char message[], int status){
 
 int main(int argc, const char * argv[]) {
     char response[1000000];
-    char *request = "GET HTTP/1.1\r\nHost: localhost\r\n\r\n";
+    char *request = "GET /istanbul HTTP/1.1\r\n"
+    "Host: www.yelp.com\r\n"
+    "Connection: close\r\n"
+    "\r\n";
     struct hostent *server;
     struct sockaddr_in serveraddr;
     int socketfd;
@@ -33,7 +36,7 @@ int main(int argc, const char * argv[]) {
         puts("Tcp socket has been created");
     }
     
-    server = gethostbyname("localhost");
+    server = gethostbyname("www.yelp.com");
     
     if(server == NULL) {
         exit_with_error("Couldn't get ip of host", -1);
@@ -44,7 +47,7 @@ int main(int argc, const char * argv[]) {
     bzero((char *) &serveraddr, sizeof(serveraddr));
     bcopy((char *) server->h_addr, (char *) &serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_family = AF_INET;
-    serveraddr.sin_port = htons(3000);
+    serveraddr.sin_port = htons(80);
     
     if(connect(socketfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) {
         exit_with_error("Couldn't connect server", -1);
